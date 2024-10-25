@@ -1,14 +1,23 @@
 import React from 'react'
+import { Route, Routes } from 'react-router-dom'
+import Home from './pages/Home'
+import Login from './pages/Login'
+import Profile from './pages/Profile'
+import Signup from './pages/Signup'
+import Navbar from './components/Navbar'
 
 const App = () => {
   return (
-    <div className='uppercase'>
-      <h1 className='font-nsans-light'>netflix</h1> 
-      <h1 className=''>netflix</h1>
-      <h1 className='font-nsans-medium'>netflix</h1>
-      <h1 className='font-nsans-bold'>netflix</h1>
-      
-    </div>
+    <>
+    <Navbar />
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/signup" element={<Signup />} />
+        <Route path="/profile" element={<Profile />} />
+      </Routes>
+    </>
+
   )
 }
 
