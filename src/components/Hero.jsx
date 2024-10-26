@@ -1,6 +1,6 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react'
-import endpoints from '../services/movieServices';
+import endpoints, { createImageUrl } from '../services/movieServices';
 
 const Hero = () => {
 
@@ -35,7 +35,7 @@ const Hero = () => {
         <div className='w-full h-[550px] lg:h-[850px]'>
             <div className='w-full h-full'>
                 <div className="absolute w-full h-[550px] lg:h-[850px] bg-gradient-to-r from-black" />
-                <img className="w-full h-full object-cover object-top" src={`https://image.tmdb.org/t/p/original/${backdrop_path}`} alt={title} />
+                <img className="w-full h-full object-cover object-top" src={createImageUrl(backdrop_path,'original')} alt={title} />
 
                 <div className='absolute w-full top-[10%] lg:top-[25%] p-4 md:p-8'> 
                     <h1 className='text-3xl md:text-6xl font-nsans-bold'>{title}</h1>
