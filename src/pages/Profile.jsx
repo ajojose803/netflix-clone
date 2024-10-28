@@ -20,8 +20,16 @@ const Profile = () => {
   }, [user?.email]);
 
   const slide = (offset) => {
-    const slider = document.getElementById('slider' );
+    const slider = document.getElementById('slider');
     slider.scrollLeft = slider.scrollLeft + offset
+  }
+
+  const handleUnlikeShow = async (movie) => {
+    const userDoc = doc(db, 'users', user.email);
+
+    await updateDoc(userDoc, {
+      favShows: arrayRemove(movie),
+    })
   }
 
   if (!user) {
@@ -50,6 +58,7 @@ const Profile = () => {
           </p>
         </div>
       </div>
+
       {/* movie row */}
 
       <h2 className="font-nsans-bold md:text-xl p-4 capitalize">Favorite Movies</h2>
@@ -65,25 +74,25 @@ const Profile = () => {
         <div id={`slider`}
           className='w-full h-full overflow-x-scroll whitespace-nowrap scroll-smooth scrollbar-hide'
         >
-          {movies.map(({ id, title, backdrop_path, poster_path }) => (
+          {movies.map((movie) => (
 
             <div
-              key={id}
+              key={movie.id}
               className='relative w-[160px] sm:w-[200px] md:w-[240px] lg:w-[280px] inline-block rounded-lg  cursor-pointer m-2'>
               <img
                 className='w-full h-40 block object-cover object-top'
-                src={createImageUrl(backdrop_path ?? poster_path, 'w500')}
-                alt={title}
+                src={createImageUrl(movie.backdrop_path ?? movie.poster_path, 'w500')}
+                alt={movie.title}
               />
               <div className='absolute top-0 left-0 w-full h-40 bg-black/70 opacity-0 hover:opacity-100'>
                 <p className='whitespace-normal text-xs md:text-sm flex justify-center items-center h-full font-nsans-bold'>
-                  {title}
+                  {movie.title}
                 </p>
                 <p>
-                  <AiOutlineClose 
-                  onClick={handle}
-                  size={30} 
-                  className='absolute top-2 right-2'/>
+                  <AiOutlineClose
+                    onClick={() => handleUnlikeShow(movie)}
+                    size={30}
+                    className='absolute top-2 right-2' />
                 </p>
               </div>
             </div>
